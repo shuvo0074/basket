@@ -1,4 +1,4 @@
-package com.itemlist.newarchitecture;
+package com.basket.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.itemlist.BuildConfig;
-import com.itemlist.newarchitecture.components.MainComponentsRegistry;
-import com.itemlist.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.basket.BuildConfig;
+import com.basket.newarchitecture.components.MainComponentsRegistry;
+import com.basket.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
