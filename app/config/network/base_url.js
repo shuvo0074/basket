@@ -2,7 +2,7 @@ import ENV from '../env';
 
 const baseURLs = {
   DEV: {
-    api: 'https://dummy.restapiexample.com/api/v1/',
+    api: 'https://dummyjson.com/',
   },
   STAGING: {
     api: 'https://dummy.restapiexample.com/api/v1/',
