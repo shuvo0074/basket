@@ -72,12 +72,12 @@ const Login: () => Node = () => {
           style={styles.btnContainer}
         >
           <TouchableOpacity
-          onPress={()=>navigate(PATHS.OnBoarding)}
+            onPress={() => navigate(PATHS.OnBoarding)}
           >
             <Text style={styles.bottomText}>Skip</Text>
           </TouchableOpacity>
           <TouchableOpacity
-          onPress={()=>navigate(PATHS.OnBoarding)}
+            onPress={() => navigate(PATHS.OnBoarding)}
           >
             <Text style={styles.bottomText}>Next</Text>
           </TouchableOpacity>
@@ -91,7 +91,7 @@ const Login: () => Node = () => {
 const styles = StyleSheet.create({
   btmSection: {
     position: 'absolute',
-    bottom: GlobalStyles.PADDING * 2
+    bottom: GlobalStyles.PADDING * 3
   },
   bgOverlay: {
     ...StyleSheet.absoluteFillObject,
