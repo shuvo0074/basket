@@ -67,6 +67,8 @@ const colors = {
   COLOR_RED: '#FF6264',
   COLOR_GREY: '#C4C4C4',
   COLOR_GREY_ACCENT: '#838383',
+  COLOR_PRIMARY: '#25464f',
+  COLOR_SECONDARY: '#ff8137',
 };
 
 const DarkStyles = {
