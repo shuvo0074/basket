@@ -1,5 +1,5 @@
 // DEV, STAGING, PRODUCTION
 
-const ENV = 'STAGING';
+const ENV = 'DEV';
 
 export default ENV;

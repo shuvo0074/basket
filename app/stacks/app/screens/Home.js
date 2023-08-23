@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import type { Node } from 'react';
 import {
   Image,
@@ -26,51 +26,9 @@ import GlobalStyles from '../../../style';
 import assets from '../../../assets';
 import { navigate } from '../../../services/NavigationService';
 import { PATHS } from '../../../const/paths';
-
-const menuItems = [
-  {
-    title: "Notification",
-    icon: "notification",
-    onPress: ()=>{}
-  },
-  {
-    title: "Edit Profile",
-    icon: "user",
-    onPress: ()=>{}
-  },
-  {
-    title: "Wishlist",
-    icon: "star",
-    onPress: ()=>{}
-  },
-  {
-    title: "Order History",
-    icon: "history",
-    onPress: ()=>{}
-  },
-  {
-    title: "Track Order",
-    icon: "track_order",
-    onPress: ()=>{}
-  },
-  {
-    title: "Payment Option",
-    icon: "payment",
-    onPress: ()=>{}
-  },
-  {
-    title: "Settings",
-    icon: "setting",
-    onPress: ()=>{}
-  },
-  {
-    title: "Logout",
-    icon: "logout",
-    onPress: ()=>{
-      navigate(PATHS.AuthStack)
-    }
-  },
-]
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../auth/actions/authActions';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const Section = ({ item }): Node => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -90,6 +48,55 @@ const Section = ({ item }): Node => {
 
 const Home: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
+  const dispatch = useDispatch()
+  const { user } = useSelector(state => state.auth)
+
+  const menuItems = [
+    {
+      title: "Notification",
+      icon: "notification",
+      onPress: () => { }
+    },
+    {
+      title: "Edit Profile",
+      icon: "user",
+      onPress: () => { }
+    },
+    {
+      title: "Wishlist",
+      icon: "star",
+      onPress: () => { }
+    },
+    {
+      title: "Order History",
+      icon: "history",
+      onPress: () => { }
+    },
+    {
+      title: "Track Order",
+      icon: "track_order",
+      onPress: () => { }
+    },
+    {
+      title: "Payment Option",
+      icon: "payment",
+      onPress: () => { }
+    },
+    {
+      title: "Settings",
+      icon: "setting",
+      onPress: () => { }
+    },
+    {
+      title: "Logout",
+      icon: "logout",
+      onPress: () => {
+        navigate(PATHS.AuthStack)
+        AsyncStorage.clear()
+        dispatch(logout())
+      }
+    },
+  ]
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -129,12 +136,12 @@ const Home: () => Node = () => {
           style={styles.profileSection}
         >
           <Image
-            source={assets.family}
+            source={{ uri: user.image }}
             style={styles.profilePic}
           />
           <View>
-            <Text style={styles.name}>name</Text>
-            <Text style={styles.subtitle}>name@email</Text>
+            <Text style={styles.name}>{`${user.firstName} ${user.lastName}`}</Text>
+            <Text style={styles.subtitle}>{user.email}</Text>
           </View>
         </View>
       </View>
@@ -144,7 +151,6 @@ const Home: () => Node = () => {
         {
           menuItems.map((item, index) => <Section item={item} key={index} />)
         }
-
       </View>
     </View>
   );
@@ -187,7 +193,9 @@ const styles = StyleSheet.create({
     width: GlobalStyles.FULL_WIDTH / 6,
     height: GlobalStyles.FULL_WIDTH / 6,
     borderRadius: GlobalStyles.FULL_WIDTH / 6,
-    marginRight: GlobalStyles.PADDING
+    marginRight: GlobalStyles.PADDING,
+    borderWidth: 1,
+    borderColor: GlobalStyles.COLOR_GREY
   },
   profile: {
     backgroundColor: GlobalStyles.COLOR_SECONDARY,
@@ -237,7 +245,7 @@ const styles = StyleSheet.create({
   },
   name: {
     color: GlobalStyles.COLOR_PRIMARY,
-    fontSize: GlobalStyles.fs30,
+    fontSize: GlobalStyles.fs24,
     marginTop: GlobalStyles.PADDING / 2,
     fontWeight: GlobalStyles.fw700,
   },

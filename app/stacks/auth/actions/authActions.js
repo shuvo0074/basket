@@ -17,11 +17,16 @@ export const logout = _ => {
     type: TYPES.LOGIN.LOGOUT,
   };
 };
-export const loginFromAPI = _ => dispatch => {
-  _axios.get('employees')
+export const loginFromAPI = (username, password) => dispatch => {
+  const body = {
+    username,
+    password
+  }
+  _axios.post('auth/login', body)
     .then(res => {
-      AsyncStorage.setItem(STORE_ITEMS.USER, res.data[0].toString())
-      dispatch(login(res.data[0]))
+      AsyncStorage.setItem(STORE_ITEMS.USER, JSON.stringify(res))
+      dispatch(login(res))
+      navigate(PATHS.AppStack)
     })
     .catch(e => console.log(e, "eroeroer"))
 }

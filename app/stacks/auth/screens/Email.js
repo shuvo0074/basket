@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import type { Node } from 'react';
 import {
   Image,
@@ -26,6 +26,8 @@ import assets from '../../../assets';
 import GlobalStyles from '../../../style';
 import { navigate } from '../../../services/NavigationService';
 import { PATHS } from '../../../const/paths';
+import { useDispatch } from 'react-redux';
+import { loginFromAPI } from '../actions/authActions';
 
 
 const Email: () => Node = () => {
@@ -35,6 +37,9 @@ const Email: () => Node = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const [email, setEmail] = useState('kminchelle')
+  const [password, setpassword] = useState('0lelplR')
+  const dispatch = useDispatch()
   return (
     <SafeAreaView style={[backgroundStyle, styles.container]}>
       <View
@@ -62,6 +67,8 @@ const Email: () => Node = () => {
           style={[styles.btnNext, { marginLeft: 0, marginRight: GlobalStyles.PADDING }]}
         />
         <TextInput
+          value={email}
+          onChangeText={setEmail}
           style={styles.inputField}
         />
       </View>
@@ -73,13 +80,19 @@ const Email: () => Node = () => {
           style={[styles.btnNext, { marginLeft: 0, marginRight: GlobalStyles.PADDING }]}
         />
         <TextInput
+          value={password}
+          onChangeText={setpassword}
           style={styles.inputField}
           secureTextEntry
         />
       </View>
       <TouchableOpacity
         style={styles.btmSection}
-        onPress={() => navigate(PATHS.AppStack)}
+        onPress={() => {
+          dispatch(loginFromAPI(email, password))
+          // navigate(PATHS.AppStack)
+
+        }}
       >
         <Text style={styles.bottomText}>Login</Text>
       </TouchableOpacity>
@@ -88,8 +101,8 @@ const Email: () => Node = () => {
       <View
         style={styles.footer}
       >
-      <Text style={styles.footerTxt}>Don't have an account?</Text>
-      <Text style={styles.signup}>Signup</Text>
+        <Text style={styles.footerTxt}>Don't have an account?</Text>
+        <Text style={styles.signup}>Signup</Text>
 
       </View>
 
@@ -97,7 +110,7 @@ const Email: () => Node = () => {
   );
 };
 const styles = StyleSheet.create({
-  footerTxt:{
+  footerTxt: {
     color: GlobalStyles.COLOR_GREY_ACCENT,
     fontWeight: GlobalStyles.fw500,
     textAlign: "center",
